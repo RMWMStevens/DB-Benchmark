@@ -1,6 +1,5 @@
 ﻿using DB_Benchmark.Models;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 
 namespace DB_Benchmark.Helpers
