@@ -34,11 +34,12 @@ namespace DB_Benchmark.Services
             searchTerms = loadResult.Data.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToList();
         }
 
-        public virtual async Task RunTest(object queriesObject)
+        public async Task RunTest<T>(object queriesObject)
         {
             if (string.IsNullOrEmpty(connectionString))
             {
                 LogHelper.Warn("No connection string given", $"{nameof(BaseDbTestService)}({nameof(system)})");
+                return;
             }
 
             if (searchTerms.Count < 1)
@@ -46,7 +47,12 @@ namespace DB_Benchmark.Services
                 LogHelper.Warn("No search terms found, test cancelled.", $"{nameof(BaseDbTestService)}({nameof(system)})");
                 return;
             }
+
+            var queries = (List<Task<T>>)queriesObject;
+            await Task.WhenAll(queries);
         }
+
+        public abstract Task RunTest(object queriesObject);
 
         public abstract object SearchTermsToQueryTasks();
     }

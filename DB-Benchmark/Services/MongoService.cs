@@ -2,7 +2,6 @@
 using DB_Benchmark.Models.MongoDB;
 using MongoDB.Driver;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace DB_Benchmark.Services
@@ -24,10 +23,7 @@ namespace DB_Benchmark.Services
 
         public override async Task RunTest(object queriesObject)
         {
-            await base.RunTest(queriesObject);
-            var queries = (List<Task<long>>)queriesObject;
-
-            await Task.WhenAll(queries);
+            await base.RunTest<long>(queriesObject);
         }
 
         public override object SearchTermsToQueryTasks()

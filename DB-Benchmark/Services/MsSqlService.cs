@@ -23,10 +23,7 @@ namespace DB_Benchmark.Services
 
         public override async Task RunTest(object queriesObject)
         {
-            await base.RunTest(queriesObject);
-            var queries = (List<Task<int>>)queriesObject;
-
-            await Task.WhenAll(queries);
+            await base.RunTest<int>(queriesObject);
         }
 
         public override object SearchTermsToQueryTasks()
