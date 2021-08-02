@@ -3,6 +3,7 @@ using DB_Benchmark.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DB_Benchmark.Services
@@ -39,22 +40,17 @@ namespace DB_Benchmark.Services
             foreach (var dbService in dbServices)
             {
                 stopwatch.Restart();
-                LogHelper.Log($"Starting {dbService.System} {testType} test", nameof(TestService));
-                await dbService.RunTest();
-                LogHelper.Log($"Finished {dbService.System} {testType} test, time: {stopwatch.Elapsed}", nameof(TestService));
+                LogHelper.Log($"Converting search words to queries for {dbService.System} - {testType} test", nameof(TestService));
+                var queriesObject = dbService.SearchTermsToQueries();
+                LogHelper.Log($"Starting {dbService.System} - {testType} test", nameof(TestService));
+                await dbService.RunTest(queriesObject);
+                LogHelper.Log($"Finished {dbService.System} - {testType} test, time: {stopwatch.Elapsed}", nameof(TestService));
             }
         }
 
         async Task LoadTests(TestSize testType)
         {
-            var loadTasks = new List<Task>();
-
-            foreach (var dbService in dbServices)
-            {
-                loadTasks.Add(dbService.LoadTest(testType));
-            }
-
-            await Task.WhenAll(loadTasks);
+            await dbServices.FirstOrDefault().LoadTest(testType);
         }
     }
 }

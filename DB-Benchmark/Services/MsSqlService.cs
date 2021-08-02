@@ -17,14 +17,20 @@ namespace DB_Benchmark.Services
             var sqlAuth = @"Data Source=COMPUTERNAME;Initial Catalog=DATABASENAME;User ID=USERNAME;Password=PASSWORD;Connection Timeout=600";
             var winAuth = @"Data Source=COMPUTERNAME;Initial Catalog=DATABASENAME;Integrated Security=SSPI;Connection Timeout=600";
 
-            return $"For SQL Authentication: \n{sqlAuth}\nFor Windows Authentication (leave 'SSPI' as is): \n{winAuth}";
+            return $"For SQL Authentication: \n{sqlAuth}\nFor Windows Authentication (leave 'SSPI' as is): \n{winAuth}" +
+                $"\n\nThe 'Connection Timeout=(value) part makes sure the connection doesn't close prematurely.";
         }
 
-        public override async Task RunTest()
+        public override async Task RunTest(object queriesObject)
         {
-            await base.RunTest();
-            var queries = SearchTermsToQueries();
+            await base.RunTest(queriesObject);
+            var queries = (List<string>)queriesObject;
 
+            await RunTest(queries);
+        }
+
+        private async Task RunTest(List<string> queries) 
+        {
             var runTasks = new List<Task>();
 
             foreach (var query in queries)
@@ -32,10 +38,10 @@ namespace DB_Benchmark.Services
                 runTasks.Add(RunQueryAsync(query));
             }
 
-            await Task.WhenAll(runTasks);
+            await Task.WhenAll();
         }
 
-        public List<string> SearchTermsToQueries()
+        public override object SearchTermsToQueries()
         {
             var queries = new List<string>();
 
@@ -53,16 +59,9 @@ namespace DB_Benchmark.Services
             var command = new SqlCommand(sqlQuery, sqlConnection);
 
             await sqlConnection.OpenAsync();
-            var dataReader = await command.ExecuteReaderAsync();
-
-            var resultCount = 0;
-
-            while (await dataReader.ReadAsync())
-            {
-                resultCount++;
-            }
-
+            var resultCount = await command.ExecuteNonQueryAsync();
             await sqlConnection.CloseAsync();
+
             return resultCount;
         }
     }

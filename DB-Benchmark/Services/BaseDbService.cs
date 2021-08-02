@@ -15,7 +15,7 @@ namespace DB_Benchmark.Services
 
         public string GetSettingsFilePath(DatabaseSystem system)
         {
-            return $"./DB-BENCHMARK - Settings/mssql-to-mongodb_{system}.txt";
+            return $"./DB-Benchmark - Settings/mssql-to-mongodb_{system}.txt";
         }
 
         public void ShowConnectionInfo()

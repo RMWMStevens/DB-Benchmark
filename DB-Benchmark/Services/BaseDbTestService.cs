@@ -9,7 +9,7 @@ namespace DB_Benchmark.Services
 {
     public abstract class BaseDbTestService : BaseDbService
     {
-        protected List<string> searchTerms;
+        protected static List<string> searchTerms;
 
         public BaseDbTestService()
         {
@@ -18,7 +18,7 @@ namespace DB_Benchmark.Services
 
         public string GetTestsFilePath(TestSize testSize)
         {
-            return $"./DB-BENCHMARK - Tests/{(int)testSize}.txt";
+            return $"./DB-Benchmark - TestSearchTerms/{(int)testSize}.txt";
         }
 
         public async Task LoadTest(TestSize testSize)
@@ -34,7 +34,7 @@ namespace DB_Benchmark.Services
             searchTerms = loadResult.Data.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToList();
         }
 
-        public virtual async Task RunTest()
+        public virtual async Task RunTest(object queriesObject)
         {
             if (string.IsNullOrEmpty(connectionString))
             {
@@ -47,5 +47,7 @@ namespace DB_Benchmark.Services
                 return;
             }
         }
+
+        public abstract object SearchTermsToQueries();
     }
 }
