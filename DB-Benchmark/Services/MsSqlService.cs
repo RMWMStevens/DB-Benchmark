@@ -29,7 +29,7 @@ namespace DB_Benchmark.Services
             await RunTest(queries);
         }
 
-        private async Task RunTest(List<string> queries) 
+        private async Task RunTest(List<string> queries)
         {
             var runTasks = new List<Task>();
 
@@ -38,7 +38,7 @@ namespace DB_Benchmark.Services
                 runTasks.Add(RunQueryAsync(query));
             }
 
-            await Task.WhenAll();
+            await Task.WhenAll(runTasks);
         }
 
         public override object SearchTermsToQueries()
