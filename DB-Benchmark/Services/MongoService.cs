@@ -1,5 +1,8 @@
 ﻿using DB_Benchmark.Models.Enums;
+using DB_Benchmark.Models.MongoDB;
 using MongoDB.Driver;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DB_Benchmark.Services
@@ -7,6 +10,7 @@ namespace DB_Benchmark.Services
     public class MongoService : BaseDbTestService
     {
         private const string databaseName = "What2Watch";
+        private const string collectionName = "Movies";
 
         public MongoService()
         {
@@ -21,11 +25,26 @@ namespace DB_Benchmark.Services
         public override async Task RunTest(object queriesObject)
         {
             await base.RunTest(queriesObject);
+            var queries = (List<Task<long>>)queriesObject;
+
+            await Task.WhenAll(queries);
         }
 
-        public override object SearchTermsToQueries()
+        public override object SearchTermsToQueryTasks()
         {
-            throw new System.NotImplementedException();
+            var database = GetDatabase();
+            var moviesCollection = database.GetCollection<Movie>(collectionName);
+
+            var queries = new List<Task<long>>();
+
+            foreach (var searchTerm in searchTerms)
+            {
+                var movieFilterDef = new FilterDefinitionBuilder<Movie>();
+                var movieFilter = movieFilterDef.Where(x => x.Title == searchTerm);
+                queries.Add(moviesCollection.CountDocumentsAsync(movieFilter));
+            }
+
+            return queries;
         }
 
         private IMongoDatabase GetDatabase()

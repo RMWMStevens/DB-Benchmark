@@ -48,6 +48,6 @@ namespace DB_Benchmark.Services
             }
         }
 
-        public abstract object SearchTermsToQueries();
+        public abstract object SearchTermsToQueryTasks();
     }
 }

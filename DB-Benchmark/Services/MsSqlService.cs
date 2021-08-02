@@ -24,30 +24,19 @@ namespace DB_Benchmark.Services
         public override async Task RunTest(object queriesObject)
         {
             await base.RunTest(queriesObject);
-            var queries = (List<string>)queriesObject;
+            var queries = (List<Task<int>>)queriesObject;
 
-            await RunTest(queries);
+            await Task.WhenAll(queries);
         }
 
-        private async Task RunTest(List<string> queries)
+        public override object SearchTermsToQueryTasks()
         {
-            var runTasks = new List<Task>();
-
-            foreach (var query in queries)
-            {
-                runTasks.Add(RunQueryAsync(query));
-            }
-
-            await Task.WhenAll(runTasks);
-        }
-
-        public override object SearchTermsToQueries()
-        {
-            var queries = new List<string>();
+            var queries = new List<Task<int>>();
 
             foreach (var searchTerm in searchTerms)
             {
-                queries.Add($"SELECT Title FROM MOVIES WHERE Title LIKE '%{searchTerm}%'");
+                var query = $"SELECT Title FROM MOVIES WHERE Title LIKE '%{searchTerm}%'";
+                queries.Add(RunQueryAsync(query));
             }
 
             return queries;

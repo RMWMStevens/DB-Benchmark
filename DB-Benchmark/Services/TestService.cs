@@ -41,7 +41,7 @@ namespace DB_Benchmark.Services
             {
                 stopwatch.Restart();
                 LogHelper.Log($"Converting search words to queries for {dbService.System} - {testType} test", nameof(TestService));
-                var queriesObject = dbService.SearchTermsToQueries();
+                var queriesObject = dbService.SearchTermsToQueryTasks();
                 LogHelper.Log($"Starting {dbService.System} - {testType} test", nameof(TestService));
                 await dbService.RunTest(queriesObject);
                 LogHelper.Log($"Finished {dbService.System} - {testType} test, time: {stopwatch.Elapsed}", nameof(TestService));
