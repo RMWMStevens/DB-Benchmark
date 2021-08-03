@@ -18,7 +18,7 @@ namespace DB_Benchmark.Services
 
         public string GetTestsFilePath(TestProfile testSize)
         {
-            return $"./DB-Benchmark - TestSearchTerms/{(int)testSize}.txt";
+            return $"./DB-Benchmark - Test - Keywords/{(int)testSize}.txt";
         }
 
         public async Task LoadTest(TestProfile testSize)

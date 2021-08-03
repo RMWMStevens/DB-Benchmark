@@ -49,7 +49,8 @@ namespace DB_Benchmark.Services
             {
                 Console.WriteLine($"Setting connection string for database system: {system}");
                 Console.WriteLine($"Leave empty and press Enter to skip setting a new string\n");
-                Console.WriteLine($"The connection string should be of the following format: \n{GetExampleConnectionStringFormat()}\n");
+                Console.WriteLine($"The connection string should be of the following format: \n{GetExampleConnectionStringFormat()}\n\n");
+                Console.WriteLine("Enter your connecting string below:");
 
                 var input = Console.ReadLine();
 

@@ -1,4 +1,5 @@
-﻿using DB_Benchmark.Helpers;
+﻿using DB_Benchmark.Disposables;
+using DB_Benchmark.Helpers;
 using DB_Benchmark.Models;
 using DB_Benchmark.Models.Enums;
 using System;
@@ -24,6 +25,11 @@ namespace DB_Benchmark.Services
             };
         }
 
+        string GetTestResultsFilePath(string fileName)
+        {
+            return $"./DB-Benchmark - Test - Results/{fileName}";
+        }
+
         public async Task<ActionResult> RunTestSuite(bool runWarmupTests)
         {
             try
@@ -43,21 +49,28 @@ namespace DB_Benchmark.Services
                     Console.Clear();
                 }
 
-                if (!runWarmupTests)
+                var fileNameSuffix = runWarmupTests ? "" : " - No warm-up";
+                var fileName = (DateTime.Now.ToString("s")).Replace(':', '-') + $"{fileNameSuffix}.txt";
+
+                using (var os = new OutputSaver(GetTestResultsFilePath(fileName)))
                 {
-                    LogHelper.LogError("Warning! Test results may be wildly inaccurate because the warm-up run was not performed.");
+                    if (!runWarmupTests)
+                    {
+                        LogHelper.LogError("Warning! Test results may be wildly inaccurate because the warm-up run was not performed.\n");
+                    }
+
+                    ShowTestTypes(testTypes);
+
+                    LogHelper.Log($"Test results will be saved to {GetTestResultsFilePath(fileName)}\n");
+
+                    foreach (var testType in testTypes)
+                    {
+                        await LoadTest(testType);
+                        await RunTests(testType);
+                    }
+
+                    LogHelper.Log("Finished.\n");
                 }
-
-                ShowTestTypes(testTypes);
-
-                foreach (var testType in testTypes)
-                {
-                    await LoadTest(testType);
-                    await RunTests(testType);
-                }
-
-                LogHelper.Log("Saving results...");
-                LogHelper.Log($"Saving complete, filename: {SaveOutput()}");
 
                 return new ActionResult { IsSuccess = true };
             }
@@ -85,7 +98,7 @@ namespace DB_Benchmark.Services
         async Task RunTests(TestProfile testType)
         {
             var stopwatch = new Stopwatch();
-            LogHelper.Log("\n------------------------------------------------");
+            LogHelper.Log("------------------------------------------------");
             LogHelper.Log($"Profile: {testType}\n");
 
             foreach (var dbService in dbServices)
@@ -96,7 +109,7 @@ namespace DB_Benchmark.Services
                 await dbService.RunTest(queriesObject);
                 LogHelper.Log($"{dbService.System} - Completed. Time: {stopwatch.Elapsed}");
 
-                LogHelper.Log("Resting...");
+                LogHelper.Log("Resting...\n");
                 Rest(5000);
             }
         }
@@ -116,10 +129,18 @@ namespace DB_Benchmark.Services
             }
         }
 
-        private string SaveOutput()
-        {
-            var fileName = DateTime.Now.ToString("s") + " TestResults.txt";
-            return fileName;
-        }
+        //private string SaveOutput()
+        //{
+        //    var fileName = (DateTime.Now.ToString("s")).Replace(':', '-') + " TestResults.txt";
+
+        //    var fileStream = new FileStream(GetTestResultsFilePath(fileName), FileMode.Create);
+        //    var streamWriter = new StreamWriter(fileStream)
+        //    {
+        //        AutoFlush = true
+        //    };
+        //    Console.SetOut(streamWriter);
+
+        //    return fileName;
+        //}
     }
 }

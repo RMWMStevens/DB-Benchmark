@@ -18,7 +18,8 @@ namespace DB_Benchmark.Services
 
         public override string GetExampleConnectionStringFormat()
         {
-            return @"mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb&maxPoolSize=10001";
+            return "mongodb://127.0.0.1:27017?compressors=disabled&gssapiServiceName=mongodb&maxPoolSize=10001" +
+                "\n\nBe sure to add the '&maxPoolSize=10001' to the end of your connection string to prevent errors.";
         }
 
         public override async Task RunTest(object queriesObject)

@@ -36,14 +36,14 @@ namespace DB_Benchmark
 
         static async Task<bool> ShowMenuAsync()
         {
-            const int menuIndexOffset = 4; // Number of items before the dynamic list of services is shown
+            const int menuIndexOffset = 1; // Index of the first dynamically allocated database service
 
             // Show Menu
             Console.Clear();
             Console.WriteLine("Select an option:");
-            Console.WriteLine("1) Start benchmarks");
-            Console.WriteLine("2) Start benchmarks without warmup");
-            Console.WriteLine("3) Show current connection info");
+            Console.WriteLine("i) Show current connection info");
+            Console.WriteLine("Enter) Start benchmarks");
+            //Console.WriteLine("0) Start benchmarks without warmup");
 
             var menuListIndex = menuIndexOffset;
             foreach (var dbService in testService.DbServices)
@@ -59,7 +59,11 @@ namespace DB_Benchmark
 
             switch (key)
             {
-                case ConsoleKey.D1:
+                case ConsoleKey.I:
+                    ShowAllConnectionInfo();
+                    PressToContinue();
+                    return true;
+                case ConsoleKey.Enter:
                     var testSuiteAR = await testService.RunTestSuite(runWarmupTests: true);
 
                     if (!testSuiteAR.IsSuccess)
@@ -70,7 +74,7 @@ namespace DB_Benchmark
 
                     PressToContinue();
                     return true;
-                case ConsoleKey.D2:
+                case ConsoleKey.D0:
                     var testSuiteWithoutWarmupAR = await testService.RunTestSuite(runWarmupTests: false);
 
                     if (!testSuiteWithoutWarmupAR.IsSuccess)
@@ -79,10 +83,6 @@ namespace DB_Benchmark
                         LogHelper.LogError(testSuiteWithoutWarmupAR.Message);
                     }
 
-                    PressToContinue();
-                    return true;
-                case ConsoleKey.D3:
-                    ShowAllConnectionInfo();
                     PressToContinue();
                     return true;
                 case ConsoleKey.Escape:
