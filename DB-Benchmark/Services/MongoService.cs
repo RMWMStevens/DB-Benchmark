@@ -18,7 +18,7 @@ namespace DB_Benchmark.Services
 
         public override string GetExampleConnectionStringFormat()
         {
-            return @"mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb";
+            return @"mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb&maxPoolSize=10001";
         }
 
         public override async Task RunTest(object queriesObject)
@@ -28,6 +28,8 @@ namespace DB_Benchmark.Services
 
         public override object SearchTermsToQueryTasks()
         {
+            base.RunTestChecks();
+
             var database = GetDatabase();
             var moviesCollection = database.GetCollection<Movie>(collectionName);
 

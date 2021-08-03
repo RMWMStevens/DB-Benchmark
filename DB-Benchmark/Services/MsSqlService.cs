@@ -28,6 +28,8 @@ namespace DB_Benchmark.Services
 
         public override object SearchTermsToQueryTasks()
         {
+            base.RunTestChecks();
+
             var queries = new List<Task<int>>();
 
             foreach (var searchTerm in searchTerms)

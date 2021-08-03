@@ -20,7 +20,7 @@ namespace DB_Benchmark.Services
 
         public void ShowConnectionInfo()
         {
-            Console.WriteLine($"Current MSSQL connection string: \n{connectionString}");
+            Console.WriteLine($"Current {system} connection string: \n{connectionString}");
         }
 
         public void ShowSetConnectionStringMessage(int menuIndex)

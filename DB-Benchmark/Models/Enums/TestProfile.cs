@@ -1,6 +1,6 @@
 ﻿namespace DB_Benchmark.Models.Enums
 {
-    public enum TestSize
+    public enum TestProfile
     {
         Small = 100,
         Medium = 1000,

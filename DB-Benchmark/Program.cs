@@ -1,4 +1,5 @@
-﻿using DB_Benchmark.Services;
+﻿using DB_Benchmark.Helpers;
+using DB_Benchmark.Services;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,12 +12,19 @@ namespace DB_Benchmark
 
         static void Main()
         {
+            testService = new TestService();
+
+            if (testService.DbServices.Count < 1)
+            {
+                LogHelper.LogError("No database systems loaded. Please check the dbServices variable in the TestService.cs");
+                return;
+            }
+
             MainAsync().GetAwaiter().GetResult();
         }
 
         static async Task MainAsync()
         {
-            testService = new TestService();
             await LoadConfigFromFileSystemAsync();
 
             bool showMenu = true;
@@ -28,13 +36,14 @@ namespace DB_Benchmark
 
         static async Task<bool> ShowMenuAsync()
         {
-            const int menuIndexOffset = 3;
+            const int menuIndexOffset = 4; // Number of items before the dynamic list of services is shown
 
             // Show Menu
             Console.Clear();
             Console.WriteLine("Select an option:");
             Console.WriteLine("1) Start benchmarks");
-            Console.WriteLine("2) Show current connection info");
+            Console.WriteLine("2) Start benchmarks without warmup");
+            Console.WriteLine("3) Show current connection info");
 
             var menuListIndex = menuIndexOffset;
             foreach (var dbService in testService.DbServices)
@@ -51,10 +60,28 @@ namespace DB_Benchmark
             switch (key)
             {
                 case ConsoleKey.D1:
-                    await testService.RunTestSuite();
+                    var testSuiteAR = await testService.RunTestSuite(runWarmupTests: true);
+
+                    if (!testSuiteAR.IsSuccess)
+                    {
+                        LogHelper.LogError("Something went wrong during the run: ");
+                        LogHelper.LogError(testSuiteAR.Message);
+                    }
+
                     PressToContinue();
                     return true;
                 case ConsoleKey.D2:
+                    var testSuiteWithoutWarmupAR = await testService.RunTestSuite(runWarmupTests: false);
+
+                    if (!testSuiteWithoutWarmupAR.IsSuccess)
+                    {
+                        LogHelper.LogError("Something went wrong during the run: ");
+                        LogHelper.LogError(testSuiteWithoutWarmupAR.Message);
+                    }
+
+                    PressToContinue();
+                    return true;
+                case ConsoleKey.D3:
                     ShowAllConnectionInfo();
                     PressToContinue();
                     return true;

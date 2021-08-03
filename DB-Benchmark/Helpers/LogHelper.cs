@@ -13,7 +13,7 @@ namespace DB_Benchmark.Helpers
             Console.WriteLine(log);
         }
 
-        public static void Warn(string message, string location = "")
+        public static void LogError(string message, string location = "")
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Log(message, location);

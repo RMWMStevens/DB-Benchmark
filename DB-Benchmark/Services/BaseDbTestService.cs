@@ -16,37 +16,42 @@ namespace DB_Benchmark.Services
             searchTerms = new List<string>();
         }
 
-        public string GetTestsFilePath(TestSize testSize)
+        public string GetTestsFilePath(TestProfile testSize)
         {
             return $"./DB-Benchmark - TestSearchTerms/{(int)testSize}.txt";
         }
 
-        public async Task LoadTest(TestSize testSize)
+        public async Task LoadTest(TestProfile testSize)
         {
             var loadResult = await FileHelper.LoadAsync<string>(GetTestsFilePath(testSize));
 
             if (!loadResult.IsSuccess)
             {
-                LogHelper.Warn($"Loading test failed, {loadResult.Message}", $"{nameof(BaseDbTestService)}({nameof(system)})");
-                return;
+                LogHelper.LogError($"Loading test failed, {loadResult.Message}", system.ToString());
+                throw new Exception();
             }
 
             searchTerms = loadResult.Data.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToList();
         }
 
-        public async Task RunTest<T>(object queriesObject)
+        public void RunTestChecks()
         {
             if (string.IsNullOrEmpty(connectionString))
             {
-                LogHelper.Warn("No connection string given", $"{nameof(BaseDbTestService)}({nameof(system)})");
-                return;
+                LogHelper.LogError("No connection string given", system.ToString());
+                throw new ArgumentNullException();
             }
 
             if (searchTerms.Count < 1)
             {
-                LogHelper.Warn("No search terms found, test cancelled.", $"{nameof(BaseDbTestService)}({nameof(system)})");
-                return;
+                LogHelper.LogError("No search terms loaded, test cancelled.", system.ToString());
+                throw new NullReferenceException();
             }
+        }
+
+        public async Task RunTest<T>(object queriesObject)
+        {
+            RunTestChecks();
 
             var queries = (List<Task<T>>)queriesObject;
             await Task.WhenAll(queries);
