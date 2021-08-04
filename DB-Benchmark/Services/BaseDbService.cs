@@ -13,7 +13,7 @@ namespace DB_Benchmark.Services
         protected DatabaseSystem system;
         public DatabaseSystem System { get { return system; } }
 
-        public string GetSettingsFilePath(DatabaseSystem system)
+        public static string GetSettingsFilePath(DatabaseSystem system)
         {
             return $"./DB-Benchmark - Settings/mssql-to-mongodb_{system}.txt";
         }

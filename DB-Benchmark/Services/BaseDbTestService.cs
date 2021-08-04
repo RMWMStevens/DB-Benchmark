@@ -9,14 +9,15 @@ namespace DB_Benchmark.Services
 {
     public abstract class BaseDbTestService : BaseDbService
     {
-        protected static List<string> searchTerms;
+        private static List<string> searchTerms;
+        protected static List<string> SearchTerms { get => searchTerms; set => searchTerms = value; }
 
         public BaseDbTestService()
         {
-            searchTerms = new List<string>();
+            SearchTerms = new List<string>();
         }
 
-        public string GetTestsFilePath(TestProfile testSize)
+        public static string GetTestsFilePath(TestProfile testSize)
         {
             return $"./DB-Benchmark - Test - Keywords/{(int)testSize}.txt";
         }
@@ -31,7 +32,7 @@ namespace DB_Benchmark.Services
                 throw new Exception();
             }
 
-            searchTerms = loadResult.Data.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToList();
+            SearchTerms = loadResult.Data.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToList();
         }
 
         public void RunTestChecks()
@@ -42,7 +43,7 @@ namespace DB_Benchmark.Services
                 throw new ArgumentNullException();
             }
 
-            if (searchTerms.Count < 1)
+            if (SearchTerms.Count < 1)
             {
                 LogHelper.LogError("No search terms loaded, test cancelled.", system.ToString());
                 throw new NullReferenceException();

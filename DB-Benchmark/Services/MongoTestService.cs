@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace DB_Benchmark.Services
 {
-    public class MongoService : BaseDbTestService
+    public class MongoTestService : BaseDbTestService
     {
         private const string databaseName = "What2Watch";
         private const string collectionName = "Movies";
 
-        public MongoService()
+        public MongoTestService()
         {
             system = DatabaseSystem.MongoDB;
         }
@@ -36,7 +36,7 @@ namespace DB_Benchmark.Services
 
             var queries = new List<Task<long>>();
 
-            foreach (var searchTerm in searchTerms)
+            foreach (var searchTerm in SearchTerms)
             {
                 var movieFilterDef = new FilterDefinitionBuilder<Movie>();
                 var movieFilter = movieFilterDef.Where(x => x.Title == searchTerm);

@@ -8,15 +8,15 @@ namespace DB_Benchmark
 {
     class Program
     {
-        static TestService testService;
+        static TestRunnerService testService;
 
         static void Main()
         {
-            testService = new TestService();
+            testService = new TestRunnerService();
 
             if (testService.DbServices.Count < 1)
             {
-                LogHelper.LogError("No database systems loaded. Please check the dbServices variable in the TestService.cs");
+                LogHelper.LogError("No database systems loaded. Please check the dbServices variable in the TestRunnerService.cs");
                 return;
             }
 

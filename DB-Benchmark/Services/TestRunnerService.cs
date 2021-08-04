@@ -6,26 +6,25 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace DB_Benchmark.Services
 {
-    public class TestService
+    public class TestRunnerService
     {
         readonly List<BaseDbTestService> dbServices;
         public List<BaseDbTestService> DbServices { get { return dbServices; } }
 
-        public TestService()
+        public TestRunnerService()
         {
             dbServices = new List<BaseDbTestService>
             {
-                new MongoService(),
-                new MsSqlService(),
+                new MongoTestService(),
+                new MsSqlTestService(),
             };
         }
 
-        string GetTestResultsFilePath(string fileName)
+        static string GetTestResultsFilePath(string fileName)
         {
             return $"./DB-Benchmark - Test - Results/{fileName}";
         }
@@ -91,7 +90,7 @@ namespace DB_Benchmark.Services
             {
                 var queriesObject = dbService.SearchTermsToQueryTasks();
                 await dbService.RunTest(queriesObject);
-                Rest(1000);
+                await Rest(1000);
             }
         }
 
@@ -110,16 +109,16 @@ namespace DB_Benchmark.Services
                 LogHelper.Log($"{dbService.System} - Completed. Time: {stopwatch.Elapsed}");
 
                 LogHelper.Log("Resting...\n");
-                Rest(5000);
+                await Rest(5000);
             }
         }
 
-        private void Rest(int milliseconds)
+        private static async Task Rest(int milliseconds)
         {
-            Thread.Sleep(milliseconds); // Find a non-blocking solution
+            await Task.Delay(milliseconds);
         }
 
-        private void ShowTestTypes(TestProfile[] testTypes)
+        private static void ShowTestTypes(TestProfile[] testTypes)
         {
             LogHelper.Log($"Profile(s): {string.Join(" | ", testTypes)}\n");
 
@@ -128,19 +127,5 @@ namespace DB_Benchmark.Services
                 LogHelper.Log($"Profile '{testType}': {(int)testType} search queries");
             }
         }
-
-        //private string SaveOutput()
-        //{
-        //    var fileName = (DateTime.Now.ToString("s")).Replace(':', '-') + " TestResults.txt";
-
-        //    var fileStream = new FileStream(GetTestResultsFilePath(fileName), FileMode.Create);
-        //    var streamWriter = new StreamWriter(fileStream)
-        //    {
-        //        AutoFlush = true
-        //    };
-        //    Console.SetOut(streamWriter);
-
-        //    return fileName;
-        //}
     }
 }

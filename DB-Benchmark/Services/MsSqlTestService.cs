@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace DB_Benchmark.Services
 {
-    public class MsSqlService : BaseDbTestService
+    public class MsSqlTestService : BaseDbTestService
     {
-        public MsSqlService()
+        public MsSqlTestService()
         {
             system = DatabaseSystem.MSSQL;
         }
@@ -32,7 +32,7 @@ namespace DB_Benchmark.Services
 
             var queries = new List<Task<int>>();
 
-            foreach (var searchTerm in searchTerms)
+            foreach (var searchTerm in SearchTerms)
             {
                 var query = $"SELECT Title FROM MOVIES WHERE Title LIKE '%{searchTerm}%'";
                 queries.Add(RunQueryAsync(query));
