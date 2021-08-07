@@ -64,7 +64,8 @@ namespace DB_Benchmark
                     PressToContinue();
                     return true;
                 case ConsoleKey.Enter:
-                    var testSuiteAR = await testService.RunTestSuite(runWarmupTests: true);
+                    var runCount = 3;
+                    var testSuiteAR = await testService.RunTestSuite(runWarmupTests: true, runCount);
 
                     if (!testSuiteAR.IsSuccess)
                     {
@@ -75,7 +76,8 @@ namespace DB_Benchmark
                     PressToContinue();
                     return true;
                 case ConsoleKey.D0:
-                    var testSuiteWithoutWarmupAR = await testService.RunTestSuite(runWarmupTests: false);
+                    runCount = 1;
+                    var testSuiteWithoutWarmupAR = await testService.RunTestSuite(runWarmupTests: false, runCount);
 
                     if (!testSuiteWithoutWarmupAR.IsSuccess)
                     {

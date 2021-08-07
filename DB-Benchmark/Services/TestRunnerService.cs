@@ -29,7 +29,7 @@ namespace DB_Benchmark.Services
             return $"./DB-Benchmark - Test - Results/{fileName}";
         }
 
-        public async Task<ActionResult> RunTestSuite(bool runWarmupTests)
+        public async Task<ActionResult> RunTestSuite(bool runWarmupTests, int runCount)
         {
             try
             {
@@ -65,7 +65,7 @@ namespace DB_Benchmark.Services
                     foreach (var testType in testTypes)
                     {
                         await LoadTest(testType);
-                        await RunTests(testType);
+                        await RunTests(testType, runCount);
                     }
 
                     LogHelper.Log("Finished.\n");
@@ -94,22 +94,26 @@ namespace DB_Benchmark.Services
             }
         }
 
-        async Task RunTests(TestProfile testType)
+        async Task RunTests(TestProfile testType, int runCount)
         {
             var stopwatch = new Stopwatch();
             LogHelper.Log("------------------------------------------------");
             LogHelper.Log($"Profile: {testType}\n");
 
-            foreach (var dbService in dbServices)
+            for (var i = 1; i <= runCount; i++)
             {
-                stopwatch.Restart();
-                LogHelper.Log($"{dbService.System} - Running...");
-                var queriesObject = dbService.SearchTermsToQueryTasks();
-                await dbService.RunTest(queriesObject);
-                LogHelper.Log($"{dbService.System} - Completed. Time: {stopwatch.Elapsed}");
+                LogHelper.Log($"Run {i}\n");
+                foreach (var dbService in dbServices)
+                {
+                    stopwatch.Restart();
+                    LogHelper.Log($"{dbService.System} - Running...");
+                    var queriesObject = dbService.SearchTermsToQueryTasks();
+                    await dbService.RunTest(queriesObject);
+                    LogHelper.Log($"{dbService.System} - Completed. Time: {stopwatch.Elapsed}");
 
-                LogHelper.Log("Resting...\n");
-                await Rest(5000);
+                    LogHelper.Log("Resting...\n");
+                    await Rest(2000);
+                }
             }
         }
 
