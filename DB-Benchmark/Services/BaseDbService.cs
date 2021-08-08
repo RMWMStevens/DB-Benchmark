@@ -7,11 +7,10 @@ namespace DB_Benchmark.Services
 {
     public abstract class BaseDbService
     {
-        protected string connectionString;
+        private string connectionString;
         public string ConnectionString { get { return connectionString; } }
 
-        protected DatabaseSystem system;
-        public DatabaseSystem System { get { return system; } }
+        public abstract DatabaseSystem System { get; }
 
         public static string GetSettingsFilePath(DatabaseSystem system)
         {
@@ -20,26 +19,26 @@ namespace DB_Benchmark.Services
 
         public void ShowConnectionInfo()
         {
-            Console.WriteLine($"Current {system} connection string: \n{connectionString}");
+            Console.WriteLine($"Current {System} connection string: \n{connectionString}");
         }
 
         public void ShowSetConnectionStringMessage(int menuIndex)
         {
-            Console.WriteLine($"{menuIndex}) Set {system} connection string");
+            Console.WriteLine($"{menuIndex}) Set {System} connection string");
         }
 
         public async Task LoadConfigFromFileSystemAsync()
         {
-            LogHelper.Log(message: $"Reading {system} configuration file...");
+            LogHelper.Log(message: $"Loading {System} configuration file...");
 
-            var loadResult = await FileHelper.LoadAsync<string>(GetSettingsFilePath(system));
+            var loadResult = await FileHelper.LoadAsync<string>(GetSettingsFilePath(System));
             if (!loadResult.IsSuccess)
             {
-                Console.WriteLine(loadResult.Message);
+                LogHelper.Log(loadResult.Message + "\n");
                 return;
             }
 
-            LogHelper.Log($"Loaded {system} connection strings successfully from local filesystem");
+            LogHelper.Log($"Read {System} connection strings successfully from local filesystem\n");
             connectionString = loadResult.Data;
         }
 
@@ -47,7 +46,7 @@ namespace DB_Benchmark.Services
         {
             try
             {
-                Console.WriteLine($"Setting connection string for database system: {system}");
+                Console.WriteLine($"Setting connection string for database system: {System}");
                 Console.WriteLine($"Leave empty and press Enter to skip setting a new string\n");
                 Console.WriteLine($"The connection string should be of the following format: \n{GetExampleConnectionStringFormat()}\n\n");
                 Console.WriteLine("Enter your connecting string below:");

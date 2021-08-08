@@ -1,16 +1,14 @@
 ﻿using DB_Benchmark.Models.Enums;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DB_Benchmark.Services
 {
     public class MsSqlTestService : BaseDbTestService
     {
-        public MsSqlTestService()
-        {
-            system = DatabaseSystem.MSSQL;
-        }
+        public override DatabaseSystem System => DatabaseSystem.MSSQL;
 
         public override string GetExampleConnectionStringFormat()
         {
@@ -21,9 +19,11 @@ namespace DB_Benchmark.Services
                 $"\n\nThe 'Connection Timeout=(value) part makes sure the connection doesn't close prematurely.";
         }
 
-        public override async Task RunTest(object queriesObject)
+        public override async Task<int> RunTest(object queriesObject)
         {
-            await base.RunTest<int>(queriesObject);
+            var results = await base.RunTest<int>(queriesObject);
+            var resultCount = results.AsParallel().Sum();
+            return resultCount;
         }
 
         public override object SearchTermsToQueryTasks()
@@ -43,7 +43,7 @@ namespace DB_Benchmark.Services
 
         public async Task<int> RunQueryAsync(string sqlQuery)
         {
-            var sqlConnection = new SqlConnection(connectionString);
+            var sqlConnection = new SqlConnection(ConnectionString);
             var command = new SqlCommand(sqlQuery, sqlConnection);
 
             await sqlConnection.OpenAsync();

@@ -2,6 +2,7 @@
 using DB_Benchmark.Models.MongoDB;
 using MongoDB.Driver;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DB_Benchmark.Services
@@ -11,10 +12,7 @@ namespace DB_Benchmark.Services
         private const string databaseName = "What2Watch";
         private const string collectionName = "Movies";
 
-        public MongoTestService()
-        {
-            system = DatabaseSystem.MongoDB;
-        }
+        public override DatabaseSystem System => DatabaseSystem.MongoDB;
 
         public override string GetExampleConnectionStringFormat()
         {
@@ -22,9 +20,11 @@ namespace DB_Benchmark.Services
                 "\n\nBe sure to add the '&maxPoolSize=10001' to the end of your connection string to prevent errors.";
         }
 
-        public override async Task RunTest(object queriesObject)
+        public override async Task<long> RunTest(object queriesObject)
         {
-            await base.RunTest<long>(queriesObject);
+            var results = await base.RunTest<long>(queriesObject);
+            var resultCount = results.AsParallel().Sum();
+            return resultCount;
         }
 
         public override object SearchTermsToQueryTasks()
@@ -48,7 +48,7 @@ namespace DB_Benchmark.Services
 
         private IMongoDatabase GetDatabase()
         {
-            var mongoClient = new MongoClient(connectionString);
+            var mongoClient = new MongoClient(ConnectionString);
             return mongoClient.GetDatabase(databaseName);
         }
     }

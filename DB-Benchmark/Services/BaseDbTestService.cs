@@ -28,7 +28,7 @@ namespace DB_Benchmark.Services
 
             if (!loadResult.IsSuccess)
             {
-                LogHelper.LogError($"Loading test failed, {loadResult.Message}", system.ToString());
+                LogHelper.LogError($"Loading test failed, {loadResult.Message}", System.ToString());
                 throw new Exception();
             }
 
@@ -37,25 +37,25 @@ namespace DB_Benchmark.Services
 
         public void RunTestChecks()
         {
-            if (string.IsNullOrEmpty(connectionString))
+            if (string.IsNullOrEmpty(ConnectionString))
             {
-                LogHelper.LogError("No connection string given", system.ToString());
+                LogHelper.LogError("No connection string given", System.ToString());
                 throw new ArgumentNullException();
             }
 
             if (SearchTerms.Count < 1)
             {
-                LogHelper.LogError("No search terms loaded, test cancelled.", system.ToString());
+                LogHelper.LogError("No search terms loaded, test cancelled.", System.ToString());
                 throw new NullReferenceException();
             }
         }
 
-        public async Task RunTest<T>(object queriesObject)
+        public async Task<T[]> RunTest<T>(object queriesObject)
         {
             RunTestChecks();
 
             var queries = (List<Task<T>>)queriesObject;
-            await Task.WhenAll(queries);
+            return await Task.WhenAll(queries);
         }
 
         public abstract Task RunTest(object queriesObject);

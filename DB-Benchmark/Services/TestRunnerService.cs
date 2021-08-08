@@ -19,8 +19,10 @@ namespace DB_Benchmark.Services
         {
             dbServices = new List<BaseDbTestService>
             {
-                new MongoTestService(),
-                new MsSqlTestService(),
+                //new MongoTestService(),
+                //new MsSqlTestService(),
+                new Neo4jTestService(),
+                //new RedisTestService(),
             };
         }
 

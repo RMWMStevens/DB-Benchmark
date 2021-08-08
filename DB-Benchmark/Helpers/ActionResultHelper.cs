@@ -29,7 +29,7 @@ namespace DB_Benchmark.Helpers
             return new ActionResult<T>()
             {
                 IsSuccess = false,
-                Message = ex.Message,
+                Message = ex.ToString(),
                 Data = default
             };
         }
