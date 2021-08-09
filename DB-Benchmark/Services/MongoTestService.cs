@@ -23,8 +23,8 @@ namespace DB_Benchmark.Services
         public override async Task<long> RunTest(object queriesObject)
         {
             var results = await base.RunTest<long>(queriesObject);
-            var resultCount = results.AsParallel().Sum();
-            return resultCount;
+            var resultSum = results.AsParallel().Sum();
+            return resultSum;
         }
 
         public override object SearchTermsToQueryTasks()

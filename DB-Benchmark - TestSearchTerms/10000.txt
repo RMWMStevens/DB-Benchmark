@@ -1,3 +1,5 @@
+boat
+war
 toy
 crooked
 bury
@@ -12,12 +14,10 @@ friend
 beginner
 dream
 sail
-precede
 crack
 hurry
 store
 cooing
-lamentable
 note
 permissible
 political

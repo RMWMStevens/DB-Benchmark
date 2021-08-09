@@ -1,3 +1,5 @@
+boat
+war
 toy
 crooked
 bury
@@ -16,7 +18,6 @@ precede
 crack
 hurry
 store
-cooing
 lamentable
 note
 permissible
@@ -37,7 +38,6 @@ view
 elated
 male
 invincible
-teeny-tiny
 slap
 want
 throat
