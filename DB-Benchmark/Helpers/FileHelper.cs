@@ -1,4 +1,5 @@
 ﻿using DB_Benchmark.Models;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -19,7 +20,7 @@ namespace DB_Benchmark.Helpers
                 await File.WriteAllTextAsync(filePath, connectionInfo);
                 return new ActionResult { IsSuccess = true };
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 return ActionResultHelper.CreateErrorResult<string>(ex);
             }
@@ -34,7 +35,7 @@ namespace DB_Benchmark.Helpers
                 var result = await File.ReadAllTextAsync(filePath);
                 return ActionResultHelper.CreateSuccessResult(result);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 return ActionResultHelper.CreateErrorResult<string>(ex);
             }

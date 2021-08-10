@@ -1,6 +1,5 @@
 ﻿using DB_Benchmark.Models.Enums;
 using Neo4j.Driver;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -65,7 +64,7 @@ namespace DB_Benchmark.Services
             foreach (var searchTerm in SearchTerms)
             {
                 queries.Add($"MATCH (m) WHERE m.title =~ '(?i).*{searchTerm}.*' RETURN count(m);");
-            }            
+            }
 
             return queries;
         }
