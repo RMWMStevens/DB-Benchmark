@@ -46,10 +46,6 @@ namespace DB_Benchmark.Services
             return queries;
         }
 
-        private IMongoDatabase GetDatabase()
-        {
-            var mongoClient = new MongoClient(ConnectionString);
-            return mongoClient.GetDatabase(databaseName);
-        }
+        private IMongoDatabase GetDatabase() => new MongoClient(ConnectionString).GetDatabase(databaseName);
     }
 }

@@ -13,7 +13,7 @@ namespace DB_Benchmark.Services
     public class TestRunnerService
     {
         readonly List<BaseDbTestService> dbServices;
-        public List<BaseDbTestService> DbServices { get { return dbServices; } }
+        public List<BaseDbTestService> DbServices { get => dbServices; }
 
         public TestRunnerService()
         {

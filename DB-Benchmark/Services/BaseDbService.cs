@@ -8,7 +8,7 @@ namespace DB_Benchmark.Services
     public abstract class BaseDbService
     {
         private string connectionString;
-        public string ConnectionString { get { return connectionString; } }
+        public string ConnectionString { get => connectionString; }
 
         public abstract DatabaseSystem System { get; }
 

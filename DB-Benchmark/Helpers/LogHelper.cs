@@ -20,9 +20,6 @@ namespace DB_Benchmark.Helpers
             Console.ResetColor();
         }
 
-        private static string GetTimestamp()
-        {
-            return DateTime.Now.ToString("HH:mm:ss.fff");
-        }
+        private static string GetTimestamp() => DateTime.Now.ToString("HH:mm:ss.fff");
     }
 }
