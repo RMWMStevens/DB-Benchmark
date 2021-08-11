@@ -11,14 +11,14 @@ namespace DB_Benchmark.Services
     {
         protected static List<string> SearchTerms { get; set; } = new List<string>();
 
-        public static string GetTestsFilePath(TestProfile testSize)
+        public static string GetTestsFilePath(TestProfile testProfile)
         {
-            return $"./DB-Benchmark - Test - Keywords/{(int)testSize}.txt";
+            return $"./DB-Benchmark - Test - Keywords/{(int)testProfile}.txt";
         }
 
-        public async Task LoadTest(TestProfile testSize)
+        public virtual async Task LoadTest(TestProfile testProfile)
         {
-            var loadResult = await FileHelper.LoadAsync<string>(GetTestsFilePath(testSize));
+            var loadResult = await FileHelper.LoadAsync<string>(GetTestsFilePath(testProfile));
 
             if (!loadResult.IsSuccess)
             {

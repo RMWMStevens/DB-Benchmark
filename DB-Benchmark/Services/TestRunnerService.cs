@@ -12,17 +12,16 @@ namespace DB_Benchmark.Services
 {
     public class TestRunnerService
     {
-        readonly List<BaseDbTestService> dbServices;
-        public List<BaseDbTestService> DbServices { get => dbServices; }
+        public List<BaseDbTestService> DbServices { get; }
 
         public TestRunnerService()
         {
-            dbServices = new List<BaseDbTestService>
+            DbServices = new List<BaseDbTestService>
             {
+                new RedisTestService(), // Needs to be at the top, otherwise caching its test won't work properly!
                 //new MongoTestService(),
                 //new MsSqlTestService(),
-                new Neo4jTestService(),
-                //new RedisTestService(),
+                //new Neo4jTestService(),
             };
         }
 
@@ -35,15 +34,15 @@ namespace DB_Benchmark.Services
         {
             try
             {
-                var testTypes = (TestProfile[])Enum.GetValues(typeof(TestProfile));
+                var testProfiles = (TestProfile[])Enum.GetValues(typeof(TestProfile));
 
                 if (runWarmupTests)
                 {
-                    LogHelper.Log("Running warm-up tests for all test types... Sit back and relax, this can take a while.");
+                    LogHelper.Log("Running warm-up tests for all test types... Sit back and relax, this can take a while.\n");
 
-                    foreach (var testType in testTypes)
+                    foreach (var testProfile in testProfiles)
                     {
-                        await LoadTest(testType);
+                        await LoadTest(testProfile);
                         await RunWarmupTests();
                     }
 
@@ -60,14 +59,14 @@ namespace DB_Benchmark.Services
                         LogHelper.LogError("Warning! Test results may be wildly inaccurate because the warm-up run was not performed.\n");
                     }
 
-                    ShowTestTypes(testTypes);
+                    ShowTestProfiles(testProfiles);
 
                     LogHelper.Log($"Test results will be saved to {GetTestResultsFilePath(fileName)}\n");
 
-                    foreach (var testType in testTypes)
+                    foreach (var testProfile in testProfiles)
                     {
-                        await LoadTest(testType);
-                        await RunTests(testType, runCount);
+                        await LoadTest(testProfile);
+                        await RunTests(testProfile, runCount);
                     }
 
                     LogHelper.Log("Finished.\n");
@@ -81,14 +80,14 @@ namespace DB_Benchmark.Services
             }
         }
 
-        async Task LoadTest(TestProfile testType)
+        async Task LoadTest(TestProfile testProfile)
         {
-            await dbServices.FirstOrDefault().LoadTest(testType);
+            await DbServices.FirstOrDefault().LoadTest(testProfile);
         }
 
         async Task RunWarmupTests()
         {
-            foreach (var dbService in dbServices)
+            foreach (var dbService in DbServices)
             {
                 var queriesObject = dbService.SearchTermsToQueryTasks();
                 await dbService.RunTest(queriesObject);
@@ -96,16 +95,16 @@ namespace DB_Benchmark.Services
             }
         }
 
-        async Task RunTests(TestProfile testType, int runCount)
+        async Task RunTests(TestProfile testProfile, int runCount)
         {
             var stopwatch = new Stopwatch();
             LogHelper.Log("------------------------------------------------");
-            LogHelper.Log($"Profile: {testType}\n");
+            LogHelper.Log($"Profile: {testProfile}\n");
 
             for (var i = 1; i <= runCount; i++)
             {
                 LogHelper.Log($"Run {i}\n");
-                foreach (var dbService in dbServices)
+                foreach (var dbService in DbServices)
                 {
                     stopwatch.Restart();
                     LogHelper.Log($"{dbService.System} - Running...");
@@ -124,13 +123,13 @@ namespace DB_Benchmark.Services
             await Task.Delay(milliseconds);
         }
 
-        private static void ShowTestTypes(TestProfile[] testTypes)
+        private static void ShowTestProfiles(TestProfile[] testProfiles)
         {
-            LogHelper.Log($"Profile(s): {string.Join(" | ", testTypes)}\n");
+            LogHelper.Log($"Profile(s): {string.Join(" | ", testProfiles)}\n");
 
-            foreach (var testType in testTypes)
+            foreach (var testProfile in testProfiles)
             {
-                LogHelper.Log($"Profile '{testType}': {(int)testType} search queries");
+                LogHelper.Log($"Profile '{testProfile}': {(int)testProfile} search queries");
             }
         }
     }

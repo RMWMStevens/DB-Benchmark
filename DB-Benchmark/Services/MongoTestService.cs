@@ -20,11 +20,10 @@ namespace DB_Benchmark.Services
                 "\n\nBe sure to add the '&maxPoolSize=10001' to the end of your connection string to prevent errors.";
         }
 
-        public override async Task<long> RunTest(object queriesObject)
+        public override async Task RunTest(object queriesObject)
         {
             var results = await base.RunTest<long>(queriesObject);
             var resultSum = results.AsParallel().Sum();
-            return resultSum;
         }
 
         public override object SearchTermsToQueryTasks()

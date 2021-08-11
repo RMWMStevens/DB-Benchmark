@@ -19,11 +19,10 @@ namespace DB_Benchmark.Services
                 $"\n\nThe 'Connection Timeout=(value) part makes sure the connection doesn't close prematurely.";
         }
 
-        public override async Task<int> RunTest(object queriesObject)
+        public override async Task RunTest(object queriesObject)
         {
             var results = await base.RunTest<int>(queriesObject);
             var resultSum = results.AsParallel().Sum();
-            return resultSum;
         }
 
         public override object SearchTermsToQueryTasks()

@@ -17,7 +17,7 @@ namespace DB_Benchmark.Services
                 $"Be sure to add the pipes ('|') in between the strings, and maintain the order they are in.";
         }
 
-        public override async Task<long> RunTest(object queriesObject)
+        public override async Task RunTest(object queriesObject)
         {
             var connStrings = ConnectionString.Split('|');
             string uri = connStrings[0], user = connStrings[1], pass = connStrings[2];
@@ -52,8 +52,6 @@ namespace DB_Benchmark.Services
                     var resultSum = resultCounts.AsParallel().Sum();
                     return resultSum;
                 });
-
-                return resultSum;
             }
         }
 
