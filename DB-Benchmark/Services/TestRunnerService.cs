@@ -12,18 +12,13 @@ namespace DB_Benchmark.Services
 {
     public class TestRunnerService
     {
-        public List<BaseDbTestService> DbServices { get; }
-
-        public TestRunnerService()
+        public List<BaseDbTestService> DbServices { get; } = new()
         {
-            DbServices = new List<BaseDbTestService>
-            {
-                new RedisTestService(), // Needs to be at the top, otherwise caching its test won't work properly!
-                //new MongoTestService(),
-                //new MsSqlTestService(),
-                //new Neo4jTestService(),
-            };
-        }
+            new RedisTestService(), // Needs to be at the top, otherwise caching its test won't work properly
+            new MongoTestService(),
+            new MsSqlTestService(),
+            new Neo4jTestService(),
+        };
 
         static string GetTestResultsFilePath(string fileName)
         {

@@ -9,7 +9,7 @@ namespace DB_Benchmark.Services
 {
     public abstract class BaseDbTestService : BaseDbService
     {
-        protected static List<string> SearchTerms { get; set; } = new List<string>();
+        protected static List<string> SearchTerms { get; set; } = new();
 
         public static string GetTestsFilePath(TestProfile testProfile)
         {

@@ -1,0 +1,72 @@
+[18:15:47.633] Profile(s): Small | Medium | Large
+
+[18:15:47.634] Profile 'Small': 100 search queries
+[18:15:47.636] Profile 'Medium': 1000 search queries
+[18:15:47.637] Profile 'Large': 10000 search queries
+[18:15:47.639] Test results will be saved to ./DB-Benchmark - Test - Results/2021-08-09T18-15-47.txt
+
+[18:15:47.642] ------------------------------------------------
+[18:15:47.643] Profile: Small
+
+[18:15:47.644] Run 1
+
+[18:15:47.645] Neo4j - Running...
+[18:15:47.911] Neo4j - Completed. Time: 00:00:00.2659356
+[18:15:47.912] Resting...
+
+[18:15:49.918] Run 2
+
+[18:15:49.919] Neo4j - Running...
+[18:15:49.958] Neo4j - Completed. Time: 00:00:00.0394444
+[18:15:49.959] Resting...
+
+[18:15:51.975] Run 3
+
+[18:15:51.976] Neo4j - Running...
+[18:15:52.016] Neo4j - Completed. Time: 00:00:00.0402359
+[18:15:52.017] Resting...
+
+[18:15:54.033] ------------------------------------------------
+[18:15:54.035] Profile: Medium
+
+[18:15:54.036] Run 1
+
+[18:15:54.037] Neo4j - Running...
+[18:15:56.751] Neo4j - Completed. Time: 00:00:02.7142657
+[18:15:56.752] Resting...
+
+[18:15:58.755] Run 2
+
+[18:15:58.756] Neo4j - Running...
+[18:16:01.036] Neo4j - Completed. Time: 00:00:02.2797944
+[18:16:01.038] Resting...
+
+[18:16:03.043] Run 3
+
+[18:16:03.044] Neo4j - Running...
+[18:16:04.945] Neo4j - Completed. Time: 00:00:01.9002653
+[18:16:04.946] Resting...
+
+[18:16:06.963] ------------------------------------------------
+[18:16:06.965] Profile: Large
+
+[18:16:06.967] Run 1
+
+[18:16:06.968] Neo4j - Running...
+[18:16:33.360] Neo4j - Completed. Time: 00:00:26.3918395
+[18:16:33.362] Resting...
+
+[18:16:35.364] Run 2
+
+[18:16:35.365] Neo4j - Running...
+[18:16:57.187] Neo4j - Completed. Time: 00:00:21.8215999
+[18:16:57.188] Resting...
+
+[18:16:59.191] Run 3
+
+[18:16:59.192] Neo4j - Running...
+[18:17:20.750] Neo4j - Completed. Time: 00:00:21.5582737
+[18:17:20.752] Resting...
+
+[18:17:22.760] Finished.
+

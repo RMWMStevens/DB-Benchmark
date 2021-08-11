@@ -1,0 +1,72 @@
+[12:21:32.217] Profile(s): Small | Medium | Large
+
+[12:21:32.218] Profile 'Small': 100 search queries
+[12:21:32.219] Profile 'Medium': 1000 search queries
+[12:21:32.221] Profile 'Large': 10000 search queries
+[12:21:32.222] Test results will be saved to ./DB-Benchmark - Test - Results/2021-08-08T12-21-32.txt
+
+[12:21:32.226] ------------------------------------------------
+[12:21:32.227] Profile: Small
+
+[12:21:32.228] Run 1
+
+[12:21:32.229] MongoDB - Running...
+[12:21:32.369] MongoDB - Completed. Time: 00:00:00.1409294
+[12:21:32.372] Resting...
+
+[12:21:34.396] Run 2
+
+[12:21:34.396] MongoDB - Running...
+[12:21:34.536] MongoDB - Completed. Time: 00:00:00.1399202
+[12:21:34.537] Resting...
+
+[12:21:36.544] Run 3
+
+[12:21:36.545] MongoDB - Running...
+[12:21:36.686] MongoDB - Completed. Time: 00:00:00.1408475
+[12:21:36.687] Resting...
+
+[12:21:38.693] ------------------------------------------------
+[12:21:38.694] Profile: Medium
+
+[12:21:38.695] Run 1
+
+[12:21:38.696] MongoDB - Running...
+[12:21:40.079] MongoDB - Completed. Time: 00:00:01.3820942
+[12:21:40.080] Resting...
+
+[12:21:42.082] Run 2
+
+[12:21:42.083] MongoDB - Running...
+[12:21:43.429] MongoDB - Completed. Time: 00:00:01.3456945
+[12:21:43.430] Resting...
+
+[12:21:45.432] Run 3
+
+[12:21:45.433] MongoDB - Running...
+[12:21:46.784] MongoDB - Completed. Time: 00:00:01.3506959
+[12:21:46.785] Resting...
+
+[12:21:48.805] ------------------------------------------------
+[12:21:48.806] Profile: Large
+
+[12:21:48.808] Run 1
+
+[12:21:48.809] MongoDB - Running...
+[12:22:02.252] MongoDB - Completed. Time: 00:00:13.4436124
+[12:22:02.253] Resting...
+
+[12:22:04.270] Run 2
+
+[12:22:04.271] MongoDB - Running...
+[12:22:17.637] MongoDB - Completed. Time: 00:00:13.3661496
+[12:22:17.638] Resting...
+
+[12:22:19.638] Run 3
+
+[12:22:19.639] MongoDB - Running...
+[12:22:32.977] MongoDB - Completed. Time: 00:00:13.3371584
+[12:22:32.978] Resting...
+
+[12:22:35.222] Finished.
+

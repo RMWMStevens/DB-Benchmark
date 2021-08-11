@@ -1,0 +1,72 @@
+[11:27:48.748] Profile(s): Small | Medium | Large
+
+[11:27:48.749] Profile 'Small': 100 search queries
+[11:27:48.751] Profile 'Medium': 1000 search queries
+[11:27:48.752] Profile 'Large': 10000 search queries
+[11:27:48.754] Test results will be saved to ./DB-Benchmark - Test - Results/2021-08-08T11-27-48.txt
+
+[11:27:48.758] ------------------------------------------------
+[11:27:48.760] Profile: Small
+
+[11:27:48.761] Run 1
+
+[11:27:48.761] MSSQL - Running...
+[11:27:50.907] MSSQL - Completed. Time: 00:00:02.1453235
+[11:27:50.909] Resting...
+
+[11:27:52.918] Run 2
+
+[11:27:52.919] MSSQL - Running...
+[11:27:55.112] MSSQL - Completed. Time: 00:00:02.1932810
+[11:27:55.113] Resting...
+
+[11:27:57.129] Run 3
+
+[11:27:57.129] MSSQL - Running...
+[11:27:59.316] MSSQL - Completed. Time: 00:00:02.1865326
+[11:27:59.317] Resting...
+
+[11:28:01.327] ------------------------------------------------
+[11:28:01.328] Profile: Medium
+
+[11:28:01.329] Run 1
+
+[11:28:01.330] MSSQL - Running...
+[11:28:22.146] MSSQL - Completed. Time: 00:00:20.8155924
+[11:28:22.147] Resting...
+
+[11:28:24.158] Run 2
+
+[11:28:24.159] MSSQL - Running...
+[11:28:44.624] MSSQL - Completed. Time: 00:00:20.4649366
+[11:28:44.625] Resting...
+
+[11:28:46.639] Run 3
+
+[11:28:46.640] MSSQL - Running...
+[11:29:06.917] MSSQL - Completed. Time: 00:00:20.2767424
+[11:29:06.918] Resting...
+
+[11:29:08.940] ------------------------------------------------
+[11:29:08.941] Profile: Large
+
+[11:29:08.943] Run 1
+
+[11:29:08.943] MSSQL - Running...
+[11:32:28.519] MSSQL - Completed. Time: 00:03:19.5757751
+[11:32:28.521] Resting...
+
+[11:32:30.530] Run 2
+
+[11:32:30.531] MSSQL - Running...
+[11:35:50.183] MSSQL - Completed. Time: 00:03:19.6523898
+[11:35:50.185] Resting...
+
+[11:35:52.187] Run 3
+
+[11:35:52.188] MSSQL - Running...
+[11:39:11.509] MSSQL - Completed. Time: 00:03:19.3206558
+[11:39:11.510] Resting...
+
+[11:39:13.524] Finished.
+

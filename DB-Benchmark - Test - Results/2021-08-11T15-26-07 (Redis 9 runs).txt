@@ -1,0 +1,180 @@
+[15:26:07.170] Profile(s): Small | Medium | Large
+
+[15:26:07.172] Profile 'Small': 100 search queries
+[15:26:07.173] Profile 'Medium': 1000 search queries
+[15:26:07.175] Profile 'Large': 10000 search queries
+[15:26:07.176] Test results will be saved to ./DB-Benchmark - Test - Results/2021-08-11T15-26-07.txt
+
+[15:26:07.189] ------------------------------------------------
+[15:26:07.191] Profile: Small
+
+[15:26:07.192] Run 1
+
+[15:26:07.192] Redis - Running...
+[15:26:07.195] Redis - Completed. Time: 00:00:00.0034510
+[15:26:07.198] Resting...
+
+[15:26:09.210] Run 2
+
+[15:26:09.211] Redis - Running...
+[15:26:09.215] Redis - Completed. Time: 00:00:00.0044488
+[15:26:09.216] Resting...
+
+[15:26:11.225] Run 3
+
+[15:26:11.226] Redis - Running...
+[15:26:11.304] Redis - Completed. Time: 00:00:00.0780597
+[15:26:11.329] Resting...
+
+[15:26:13.341] Run 4
+
+[15:26:13.342] Redis - Running...
+[15:26:13.346] Redis - Completed. Time: 00:00:00.0042808
+[15:26:13.348] Resting...
+
+[15:26:15.355] Run 5
+
+[15:26:15.356] Redis - Running...
+[15:26:15.361] Redis - Completed. Time: 00:00:00.0045025
+[15:26:15.362] Resting...
+
+[15:26:17.377] Run 6
+
+[15:26:17.378] Redis - Running...
+[15:26:17.382] Redis - Completed. Time: 00:00:00.0036671
+[15:26:17.383] Resting...
+
+[15:26:19.384] Run 7
+
+[15:26:19.385] Redis - Running...
+[15:26:19.389] Redis - Completed. Time: 00:00:00.0038068
+[15:26:19.390] Resting...
+
+[15:26:21.393] Run 8
+
+[15:26:21.394] Redis - Running...
+[15:26:21.398] Redis - Completed. Time: 00:00:00.0038108
+[15:26:21.399] Resting...
+
+[15:26:23.401] Run 9
+
+[15:26:23.402] Redis - Running...
+[15:26:23.407] Redis - Completed. Time: 00:00:00.0044448
+[15:26:23.408] Resting...
+
+[15:26:25.494] ------------------------------------------------
+[15:26:25.495] Profile: Medium
+
+[15:26:25.497] Run 1
+
+[15:26:25.498] Redis - Running...
+[15:26:25.643] Redis - Completed. Time: 00:00:00.1442700
+[15:26:25.665] Resting...
+
+[15:26:27.692] Run 2
+
+[15:26:27.693] Redis - Running...
+[15:26:27.698] Redis - Completed. Time: 00:00:00.0045863
+[15:26:27.699] Resting...
+
+[15:26:29.703] Run 3
+
+[15:26:29.704] Redis - Running...
+[15:26:29.709] Redis - Completed. Time: 00:00:00.0049025
+[15:26:29.710] Resting...
+
+[15:26:31.716] Run 4
+
+[15:26:31.717] Redis - Running...
+[15:26:31.792] Redis - Completed. Time: 00:00:00.0738665
+[15:26:31.862] Resting...
+
+[15:26:33.885] Run 5
+
+[15:26:33.887] Redis - Running...
+[15:26:33.891] Redis - Completed. Time: 00:00:00.0046679
+[15:26:33.892] Resting...
+
+[15:26:35.895] Run 6
+
+[15:26:35.897] Redis - Running...
+[15:26:35.901] Redis - Completed. Time: 00:00:00.0044632
+[15:26:35.902] Resting...
+
+[15:26:37.906] Run 7
+
+[15:26:37.907] Redis - Running...
+[15:26:37.914] Redis - Completed. Time: 00:00:00.0070649
+[15:26:37.915] Resting...
+
+[15:26:39.931] Run 8
+
+[15:26:39.932] Redis - Running...
+[15:26:39.937] Redis - Completed. Time: 00:00:00.0045864
+[15:26:39.938] Resting...
+
+[15:26:41.942] Run 9
+
+[15:26:41.943] Redis - Running...
+[15:26:41.949] Redis - Completed. Time: 00:00:00.0063045
+[15:26:41.950] Resting...
+
+[15:26:44.626] ------------------------------------------------
+[15:26:44.628] Profile: Large
+
+[15:26:44.629] Run 1
+
+[15:26:44.630] Redis - Running...
+[15:26:44.882] Redis - Completed. Time: 00:00:00.2520409
+[15:26:44.883] Resting...
+
+[15:26:46.898] Run 2
+
+[15:26:46.899] Redis - Running...
+[15:26:46.913] Redis - Completed. Time: 00:00:00.0146088
+[15:26:46.914] Resting...
+
+[15:26:48.919] Run 3
+
+[15:26:48.920] Redis - Running...
+[15:26:49.053] Redis - Completed. Time: 00:00:00.1330615
+[15:26:49.055] Resting...
+
+[15:26:51.061] Run 4
+
+[15:26:51.063] Redis - Running...
+[15:26:51.081] Redis - Completed. Time: 00:00:00.0177413
+[15:26:51.082] Resting...
+
+[15:26:53.091] Run 5
+
+[15:26:53.092] Redis - Running...
+[15:26:53.109] Redis - Completed. Time: 00:00:00.0168679
+[15:26:53.110] Resting...
+
+[15:26:55.133] Run 6
+
+[15:26:55.134] Redis - Running...
+[15:26:55.282] Redis - Completed. Time: 00:00:00.1478829
+[15:26:55.283] Resting...
+
+[15:26:57.289] Run 7
+
+[15:26:57.290] Redis - Running...
+[15:26:57.339] Redis - Completed. Time: 00:00:00.0488707
+[15:26:57.340] Resting...
+
+[15:26:59.360] Run 8
+
+[15:26:59.361] Redis - Running...
+[15:26:59.444] Redis - Completed. Time: 00:00:00.0833880
+[15:26:59.446] Resting...
+
+[15:27:01.461] Run 9
+
+[15:27:01.462] Redis - Running...
+[15:27:01.480] Redis - Completed. Time: 00:00:00.0178384
+[15:27:01.481] Resting...
+
+[15:27:03.508] Finished.
+
